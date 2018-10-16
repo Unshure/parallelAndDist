@@ -9,13 +9,20 @@ export void newton_method_ispc(uniform int input_size,
 
     static const float tolerance = 0.001f; // break tolerance is 10**-4
     uniform int num_threads = 8;
+    
+    // Based on the number of threads we want to use we need to find how many iterations to use in our loop
     int break_i = input_size / num_threads;
     if (input_size % num_threads != 0)
         break_i += 1;
-      // possibly needs some casting, ceil takes float in, outs float?
+    
+    // The following for loop has a nested foreach loop
+    // The for loop loops over the range specified previously
+    // The foreach loop loops over our input array in chunks based on our number of threads
+    // What this does is give us control over how many threads should be spawned in any given iteration of the for loop
+    // Note: This is done for experimental purposes as using only a foreach loop would make use of all available threads and give the best speed up
     for(uniform int i=0; i<break_i ; i++){
-    uniform int start = i*num_threads;
-    uniform int stop = min(input_size, start+num_threads);
+    	uniform int start = i*num_threads;
+    	uniform int stop = min(input_size, start+num_threads);
         foreach(j = start ... stop){
 
             float S = input[j]; // value to find sqrt
@@ -27,7 +34,7 @@ export void newton_method_ispc(uniform int input_size,
                     x_1 = .5f * (x_0 + (S/x_0));
             }
             output[j] = x_1;
-    }
+    	}
     }
 }
 
@@ -51,8 +58,7 @@ task void newton_method_ispc_task(uniform int input_size,
 
     static const float tolerance = 0.001f; // break tolerance is 10**-4
 
-
-    // foreach loop is the same as the previous function
+    // foreach loop is similar to the previous function, but now we are splitting the foreach loop across different tasks (different cores)
     foreach(i = start ... stop){
 
         float S = input[i]; // value to find sqrt
