@@ -15,6 +15,11 @@ extern void newton_method_serial(int input_size,
                 float input[],
                 float output[]);
 
+extern void newton_method_avx(int input_size,
+                float x_initial,
+                float input[],
+                float output[]);
+
 
 void tester()
 {
@@ -75,7 +80,11 @@ int main()
   dt = get_elapsed_mcycles();
   printf("Complete after %.3f million cycles\n", dt);
   
-  // Not yet implemented is a newton_method function using AVX intrinsics
+  printf("Running newton_method_avx\n");
+  reset_and_start_timer();
+  newton_method_ispc_avx(array_size, 2.f, input, output_tasks);
+  dt = get_elapsed_mcycles();
+  printf("Complete after %.3f million cycles\n", dt); 
   
   return 0;
 }
