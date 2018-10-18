@@ -50,7 +50,7 @@ export void crack(uniform size_t h_pass,
   }
 }
 
-
+/*
 task void crack_task(uniform int range, 
                       uniform size_t h_pass,
                       uniform float possibleLen,
@@ -92,3 +92,4 @@ export void crack_withtasks(uniform int range,
 
   launch[pow(setSize, possibleLen) / range] crack_task(range, h_pass, possibleLen, setSize);
 }
+*/
