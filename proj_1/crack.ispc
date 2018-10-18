@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT
 int8 map(int8 convert){
   if (convert < 10) {
     return convert + 48;
@@ -93,4 +96,7 @@ export void crack_withtasks(uniform int range,
 
   launch[pow(setSize, possibleLen) / range] crack_task(range, h_pass, possibleLen, setSize);
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT

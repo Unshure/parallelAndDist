@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT
 TASK_CXX=../tasksys.cpp
 TASK_LIB=-lpthread
 TASK_OBJ=objs/tasksys.o
@@ -117,4 +120,8 @@ objs/$(ISPC_SRC:.ispc=)_scalar.o: $(ISPC_SRC)
 	$(ISPC) $(ISPC_FLAGS) $< -o $@ --target=generic-1
 
 $(EXAMPLE)-scalar: $(CPP_OBJS) objs/$(ISPC_SRC:.ispc=)_scalar.o
+<<<<<<< HEAD
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
+=======
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
+>>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT
