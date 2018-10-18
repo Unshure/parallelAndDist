@@ -40,7 +40,7 @@ int main() {
 
     //Create a file
 
-    char password[] = "bv3q5";
+    char password[] = "aaaaa";
 
     const int possibleLen = 5;
 
@@ -48,14 +48,6 @@ int main() {
 
     //Set size is 36 characters and one blank character
     const int setSize = 36;
-
-    //Create array of powers of setsize
-    //Used later for setting guess characters
-    int powers[possibleLen];
-    powers[0] = 1;
-    for (int i = 1; i < possibleLen; ++i) {
-      powers[i] = powers[i - 1] * setSize;
-    }
 
     printf("-Starting Non-Parallel Password Cracker-\n");
 
@@ -67,12 +59,12 @@ int main() {
     // Loop through len 1 - possible len
     for (int currLen = 1; currLen <= possibleLen; ++currLen) {
     // Loop for all possible combinations
-      for (int currChar = 0; currChar <= (powers[currLen - 1] * setSize ); ++currChar) {
+      for (int currChar = 0; currChar <= (pow(setSize, currLen)); ++currChar) {
         char guess[5];
         size_t h_guess;
         // Set guess
         for (int guessIndex = 0; guessIndex < currLen; ++guessIndex) {
-          char temp = map((currChar / powers[guessIndex]) % setSize);
+          char temp = map((currChar / (int) pow(setSize, guessIndex)) % setSize);
           guess[guessIndex] = temp;
         }
 
@@ -94,7 +86,7 @@ int main() {
 
     start = std::clock();
 
-    crack(h_pass, powers, possibleLen, setSize);
+    crack(h_pass, possibleLen, setSize);
 
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
     printf("Time: %f\n", duration);

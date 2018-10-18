@@ -1,5 +1,5 @@
 
-int32 map(int32 convert){
+int8 map(int8 convert){
   if (convert < 10) {
     return convert + 48;
   } else {
@@ -23,19 +23,22 @@ unsigned int RSHash(varying int8 str[], size_t s)
     return (hash & 0x7FFFFFFF);
  }
 
-export void crack(uniform size_t h_pass, uniform int powers[], uniform size_t possibleLen, uniform int32 setSize) {
+export void crack(uniform size_t h_pass, 
+                  uniform size_t possibleLen, 
+                  uniform int setSize) {
 
   // Loop through len 1 - possible len
-  foreach ( currLen = 1 ... possibleLen + 1) {
+  foreach ( currLen = 1 ... 6) {
+    print("parallel: %\n", currLen);
   // Loop for all possible combinations
-    for (uniform int currChar = 0; currChar <= (powers[currLen - 1] * setSize ); ++currChar) {
+    int8 guess[5];
+    size_t h_guess;
+
+    for (uniform int currChar = 0; currChar <= pow((float)setSize, currLen); ++currChar) {
       //print("currlen: %\n", programIndex);
-      int8 guess[5];
-      size_t h_guess;
       // Set guess
       for (uniform int guessIndex = 0; guessIndex < currLen; ++guessIndex) {
-        int8 temp = map((currChar / powers[guessIndex]) % setSize);
-        guess[guessIndex] = temp;
+        guess[guessIndex] = map((currChar / (int) pow((float) setSize, (float) guessIndex)) % setSize);
       }
 
       // Check if it compares
@@ -46,4 +49,27 @@ export void crack(uniform size_t h_pass, uniform int powers[], uniform size_t po
       }
     }
   }
+}
+
+
+
+task void crack_task(uniform int range, 
+                      uniform size_t h_pass,
+                      uniform int powers[],
+                      uniform size_t possibleLen,
+                      uniform int setSize) {
+
+
+  uniform int start = taskIndex * range;
+
+  uniform int stop = min(powers[possibleLen - 1] * setSize, start + range);
+
+  foreach(i = start ... stop) {
+
+
+  }
+
+
+
+
 }
