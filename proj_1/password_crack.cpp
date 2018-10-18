@@ -42,12 +42,12 @@ int main() {
 
     char password[] = "aaaaa";
 
-    const int possibleLen = 5;
+    const float possibleLen = 5;
 
     size_t h_pass = RSHash(password, possibleLen);
 
     //Set size is 36 characters and one blank character
-    const int setSize = 36;
+    const float setSize = 36;
 
     printf("-Starting Non-Parallel Password Cracker-\n");
 
@@ -59,12 +59,12 @@ int main() {
     // Loop through len 1 - possible len
     for (int currLen = 1; currLen <= possibleLen; ++currLen) {
     // Loop for all possible combinations
-      for (int currChar = 0; currChar <= (pow(setSize, currLen)); ++currChar) {
+      for (int currChar = 0; currChar <= (pow(setSize, (float) currLen)); ++currChar) {
         char guess[5];
         size_t h_guess;
         // Set guess
         for (int guessIndex = 0; guessIndex < currLen; ++guessIndex) {
-          char temp = map((currChar / (int) pow(setSize, guessIndex)) % setSize);
+          char temp = map((currChar / (int) pow(setSize, guessIndex)) % (int) setSize);
           guess[guessIndex] = temp;
         }
 
@@ -83,11 +83,8 @@ int main() {
 
     
     printf("-Starting Parallel Password Cracker-\n");
-
     start = std::clock();
-
     crack(h_pass, possibleLen, setSize);
-
     duration = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
     printf("Time: %f\n", duration);
 
