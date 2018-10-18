@@ -4,12 +4,12 @@
 #include <iostream>
 #include <math.h>
 #include <ctime>
+#include "../timing.h"
 #include <unistd.h>
 
 // Include the header file that the ispc compiler generates
 #include "crack_ispc.h"
 using namespace ispc;
-using namespace std;
 
 
 char map(int convert){
