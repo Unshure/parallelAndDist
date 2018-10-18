@@ -15,10 +15,10 @@ extern void newton_method_serial(int input_size,
                 float input[],
                 float output[]);
 
-extern void newton_method_avx(int input_size,
+/*extern void newton_method_avx(int input_size,
                 float x_initial,
                 float input[],
-                float output[]);
+                float output[]);*/
 
 
 void tester()
@@ -27,7 +27,7 @@ void tester()
   // Prints the value of each function and the built-in square root to provide a confirmation that all functions are computing the square root
   // Likely would be better to compare the outputs and throw errors if they are not equal but this provides a visual confirmation that the following main isn't just wasting cycles for fun
   printf("Running tests for newton method functions \n");
-  float input[8], output_serial[8], output_foreach[8], output_tasks[8];
+  float input[8], output_serial[8], output_foreach[8], output_tasks[8], output_avx[8];
   input[0] = 0.32423f;
   input[1] = 1.35423f;
   input[2] = 2.12324f;
@@ -39,17 +39,19 @@ void tester()
   newton_method_serial(8, 2.f, input, output_serial);
   newton_method_ispc(8, 2.f, input, output_foreach);
   newton_method_ispc_withtasks(8, 2.f, input, output_tasks);
+ // newton_method_avx(8, 2.f, input, output_avx);
   for (int i=0; i<8; i++){
       printf("Square root using built in function is            %lf\n", sqrt(input[i]));
       printf("Square root using newton_method_serial is         %lf\n", output_serial[i]);
       printf("Square root using newton_method_ispc is           %lf\n", output_foreach[i]);
       printf("Square root using newton_method_ispc_withtasks is %lf\n", output_tasks[i]);
+     // printf("Square root using newton_method_avx is %lf\n", output_avx[i]);
   }
   printf("Testing complete\n");
 }
 
 // Global due to being to large for the stack
-float input[20000000], output_serial[20000000], output_foreach[20000000], output_tasks[20000000];
+float input[20000000], output_serial[20000000], output_foreach[20000000], output_tasks[20000000], output_avx[20000000];
 
 int main()
 {
@@ -79,12 +81,12 @@ int main()
   newton_method_ispc_withtasks(array_size, 2.f, input, output_tasks);
   dt = get_elapsed_mcycles();
   printf("Complete after %.3f million cycles\n", dt);
-  
-  printf("Running newton_method_avx\n");
+
+  /*printf("Running newton_method_avx\n");
   reset_and_start_timer();
-  newton_method_ispc_avx(array_size, 2.f, input, output_tasks);
+  newton_method_avx(20000000, 2.f, input, output_avx);
   dt = get_elapsed_mcycles();
   printf("Complete after %.3f million cycles\n", dt); 
-  
+  */
   return 0;
 }
