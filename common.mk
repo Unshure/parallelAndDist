@@ -1,5 +1,8 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT
 =======
 >>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT
 TASK_CXX=../tasksys.cpp
@@ -121,7 +124,11 @@ objs/$(ISPC_SRC:.ispc=)_scalar.o: $(ISPC_SRC)
 
 $(EXAMPLE)-scalar: $(CPP_OBJS) objs/$(ISPC_SRC:.ispc=)_scalar.o
 <<<<<<< HEAD
+<<<<<<< HEAD
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
+=======
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
+>>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT
 =======
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
 >>>>>>> c579ed3... MAKEFILE WORKING FOR SQRT
